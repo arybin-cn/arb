@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pry"
   spec.add_dependency "arb-hook"
   spec.add_dependency "arb-cipher"
+  spec.add_dependency "arb-dict"
 
   #spec.add_dependency "arb-xmu-course"
 end
