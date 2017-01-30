@@ -7,4 +7,5 @@ module Kernel
       end
     end
   end
+  alias_method :use,:arb_use
 end
