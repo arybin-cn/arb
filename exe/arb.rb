@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'pry'
 require 'arb'
 
-pry
+require 'irb'
+IRB.start(__FILE__)
