@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
 
-  spec.add_dependency "pry"
   spec.add_dependency "arb-str"
   spec.add_dependency "arb-hook"
   spec.add_dependency "arb-cipher"
