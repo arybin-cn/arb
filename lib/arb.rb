@@ -4,8 +4,6 @@ module Kernel
       modules.each do |mod|
         tmp=nil
         imported<<tmp if require(tmp="arb/#{mod}")
-      rescue LoadError=>e
-        warn("Fail to load #{mod}")
       end
     end
 
