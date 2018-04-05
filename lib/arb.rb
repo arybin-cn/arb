@@ -28,7 +28,7 @@ module Kernel
       arb_module=Module.const_get(:Arb).const_get(arb_module_name)
       Kernel.class_eval do
         arb_module.singleton_methods.each do |m|
-          mm=prefix+m.to_s
+          mm=prefix.to_s+m.to_s
           if !forced && Kernel.instance_methods.include?(mm)
             warn("Conflict method: #{mm}")
             res[:failed] << mm
@@ -42,7 +42,10 @@ module Kernel
       end
       res
     rescue NameError=>e
-      unless tried_arb_use
+      #Note that NoMethodError is subclass of NameError, which means that
+      #invoking nil.xxx(that throws NoMethodError) will also lead to the
+      #Name Error, we have to make sure that e is the instance of NameError!!!
+      if e.instance_of?(NameError) && !tried_arb_use
         tried_arb_use=true
         arb_use(arb_module_name.downcase)
         retry
