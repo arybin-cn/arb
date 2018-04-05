@@ -19,7 +19,8 @@ module Kernel
     imported
   end
 
-  def arb_import(arb_module_name,forced=false)
+  def arb_import(arb_module_name,prefix=nil,forced=false)
+    prefix="#{prefix}_" if prefix && !prefix.to_s.end_with?('_')
     arb_module_name=arb_module_name.to_s.capitalize!
     res={:succeed=>[],:failed=>[]}
     tried_arb_use=false
@@ -27,15 +28,16 @@ module Kernel
       arb_module=Module.const_get(:Arb).const_get(arb_module_name)
       Kernel.class_eval do
         arb_module.singleton_methods.each do |m|
-          if !forced && Kernel.instance_methods.include?(m)
-            warn("Conflict method: #{m}")
-            res[:failed] << m
+          mm=prefix+m.to_s
+          if !forced && Kernel.instance_methods.include?(mm)
+            warn("Conflict method: #{mm}")
+            res[:failed] << mm
             next
           end
-          define_method(m) do |*args,&block|
+          define_method(mm) do |*args,&block|
             arb_module.send(m,*args,&block)
           end
-          res[:succeed] << m
+          res[:succeed] << mm
         end
       end
       res
