@@ -13,7 +13,7 @@ module Kernel
         end
       end
     rescue LoadError=>e
-      warn("Fail to load arb/#{tmp}")
+      warn("Fail to load arb/#{tmp}!")
       retry
     end
     imported
