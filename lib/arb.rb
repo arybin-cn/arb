@@ -1,5 +1,5 @@
 module Kernel
-  def arb_use(*modules)
+  def arb_import(*modules)
     imported=[]
     tmp=nil
     begin 
@@ -19,7 +19,7 @@ module Kernel
     imported
   end
 
-  def arb_import(arb_module_name,prefix=nil,forced=false)
+  def arb_use(arb_module_name,prefix=nil,forced=false)
     prefix="#{prefix}_" if prefix && !prefix.to_s.end_with?('_')
     arb_module_name=arb_module_name.to_s.capitalize!
     res={:succeed=>[],:failed=>[]}
@@ -47,13 +47,13 @@ module Kernel
       #Name Error, we have to make sure that e is the instance of NameError!!!
       if e.instance_of?(NameError) && !tried_arb_use
         tried_arb_use=true
-        arb_use(arb_module_name.downcase)
+        arb_import(arb_module_name.downcase)
         retry
       end
       warn("Arb::#{arb_module_name} not found!")
     end
   end
 
-  alias_method :use,:arb_use
   alias_method :import,:arb_import
+  alias_method :use,:arb_use
 end
