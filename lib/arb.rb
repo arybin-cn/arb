@@ -28,7 +28,6 @@ module Kernel
     tried_arb_use=false
     begin
       arb_module=Module.const_get(:Arb).const_get(arb_module_name)
-      puts arb_module.inspect
       Kernel.class_eval do
         arb_module.singleton_methods.each do |m|
           mm=prefix.to_s+m.to_s
